@@ -2,8 +2,8 @@
 
 <template>
   <div>
-    <h1>Liste des Pokémons</h1>
-    <searchBar @search="filterPokemons"></searchBar>
+    
+    <searchBar @search="filterPokemons" class="mb-"></searchBar>
     <template v-if="filteredPokemons && filteredPokemons.length > 0">
       <div class="row">
         <div v-for="pokemon in filteredPokemons" :key="pokemon.id" class="col-sm-2">
@@ -39,7 +39,7 @@
 import searchBar from '../components/searchBar.vue'
 import CardBoutton from './cardBoutton.vue';
 import pokemonTeam from './pokemonTeam.vue'
-import store from '../store/store.js';
+
 
 
 export default {
@@ -75,7 +75,7 @@ export default {
         const data = await response.json();
         return {
           name: data.name,
-          image: data.sprites.front_default,
+          image: data.sprites.other["official-artwork"].front_default
           
         };
       }));
@@ -85,6 +85,7 @@ export default {
       console.log(error);//eslint-disable-line
     }
   },
+  
 
   methods: {
     filterPokemons(searchTerm) {
@@ -110,7 +111,6 @@ export default {
           image: pokemon.image,
           // ajoutez d'autres propriétés ici si nécessaire
         });
-        this.$store.commit('setPokemons', pokemons); // appel de la mutation pour enregistrer les données dans le store
 
         this.$set(this.team, this.team.length - 1, pokemon);
         

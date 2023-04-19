@@ -4,7 +4,7 @@
     <div class="row bg-primary">
       <div v-for="pokemon,index in teamPokemon" :key=index class="slot col-sm-2">
         <template v-if="pokemon">
-          <img :src="pokemon.image" :alt="pokemon.name" />
+          <img class="w-75" :src="pokemon.image" :alt="pokemon.name" />
           <div class="name">{{ pokemon.name }}</div>
           <button class="btn btn-secondary btn-rounded btn-sm text-sm" @click="removePokemon(pokemon)">Supprimer de l'équipe</button>
         </template>

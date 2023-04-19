@@ -1,17 +1,17 @@
 <template>
   <div class="fiche-pokemon">
-    <h1>{{ pokemonName }}</h1>
+   <nuxt-link to="/" class="btn">Retour</nuxt-link>
+    <h1>Fiche de {{ pokemonName }}</h1>
     <img :src="pokemonImage" :alt="pokemonName">
     <div class="description">
       <p>pokémon n°{{pokemonOrder}}</p>
       <p>pokémon de type {{ pokemonTypes }}</p>
       <ul>
-        Stats du pokémon
-        <li v-for="(value, name) in pokemonStats" :key="name">
-          {{ name }}: {{ value }}
-
-        </li>
+        <li v-for="stat in pokemonStats">
+        {{ stat.name }}: {{ stat.base_stat }}
+      </li>
       </ul>
+      <p> Poid : {{ pokemonWeight }} kg</p>
     </div>
     
   </div>
@@ -33,9 +33,9 @@ export default {
       
       /* J'utilise les données récupérées pour initialiser la propriété pokemon de mon composant */
       this.pokemon = {
-        image: data.sprites.front_default,
+       sprites: data.sprites,
        types: data.types,
-       weigth: data.weight,
+       weight: data.weight,
        stats: data.stats,
        order: data.order
       };
@@ -48,8 +48,12 @@ export default {
       return this.$route.params.name;
     },
     pokemonImage() {
-      return this.pokemon.image || '';
-    },
+  if (!this.pokemon.sprites) {
+    return null
+  }
+  return this.pokemon.sprites.other["official-artwork"].front_default
+},
+
     pokemonOrder(){
       return this.pokemon.order
     },
@@ -59,7 +63,21 @@ export default {
     }
     return this.pokemon.types.map(type => type.type.name).join(',');
   },
-
+  pokemonStats (){
+    if (!this.pokemon.stats){
+      return []
+    }
+    return this.pokemon.stats.map(stat =>{
+      
+    return {
+      name: stat.stat.name,
+      base_stat: stat.base_stat
+    }
+   } )
+  },
+  pokemonWeight() {
+   return this.pokemon.weight
+  }
 
 
   },
