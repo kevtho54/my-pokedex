@@ -1,0 +1,30 @@
+body {
+ background-color: red;   
+}
+.gallery{
+    margin: 10px;
+}
+@media screen and (max-width:1200px) {
+    .card-body{
+        padding-right: 0;
+        padding-top: 0;
+        
+        padding-bottom: 4px;
+        width: 100%;
+    }
+    .btn-card{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-right: 0;
+    }
+    .btn{
+        width: 100%;
+        padding: 0;
+    }
+    button{
+        width: 100%;
+        margin-bottom: 7px;
+    }
+    
+}

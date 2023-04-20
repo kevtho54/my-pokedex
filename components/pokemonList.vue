@@ -2,27 +2,23 @@
 
 <template>
   <div>
-    
     <searchBar @search="filterPokemons" class="mb-"></searchBar>
     <template v-if="filteredPokemons && filteredPokemons.length > 0">
-      <div class="row">
+      <div class="row gallery">
+        
         <div v-for="pokemon in filteredPokemons" :key="pokemon.id" class="col-sm-2">
-          <div class="card">
+          <div class="card mb-3">
             <img :src="pokemon.image" :alt="pokemon.name"/>
             <div class="card-body">
               <h5 class="card-title">{{ pokemon.name }}</h5>
-              <div class="row">
-              <div class="col-sm-6">
+              <div class="row btn-card">
+              <div class="col-sm-6 btn">
                 <button class="btn btn-secondary btn-rounded btn-sm text-sm" @click="addPokemonToTeam(pokemon)">Ajouter à l'équipe</button>
-
-
             </div>
-            <div class="col-sm-6">
-              
+            <div class="col-sm-6 btn">
               <router-link :to="`/fiche_pokemon/${pokemon.name}`">
-  <CardBoutton  button-text="Plus de details"></CardBoutton>
-</router-link>
-
+               <CardBoutton  button-text="Plus de details"></CardBoutton>
+              </router-link>
             </div>
             </div>
           </div>
