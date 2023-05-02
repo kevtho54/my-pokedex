@@ -1,6 +1,7 @@
 <template>
-  <div>
-  <h1 class=" text-center">Mon pokedex</h1>
+  <div class="page">
+  
+    <img src="../static/img/logo.png" alt="logo pokemon" class="logo center">
   <Pokemon-List/>
 </div>
 </template>

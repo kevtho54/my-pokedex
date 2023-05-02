@@ -3,31 +3,36 @@
 <template>
   <div>
     <searchBar @search="filterPokemons" class="mb-"></searchBar>
+    <pokemonTeam :team-pokemon="team" @remove-pokemon="removePokemon"></pokemonTeam>
     <template v-if="filteredPokemons && filteredPokemons.length > 0">
       <div class="row gallery">
         
         <div v-for="pokemon in filteredPokemons" :key="pokemon.id" class="col-sm-2">
-          <div class="card mb-3">
-            <img :src="pokemon.image" :alt="pokemon.name"/>
-            <div class="card-body">
-              <h5 class="card-title">{{ pokemon.name }}</h5>
-              <div class="row btn-card">
-              <div class="col-sm-6 btn">
-                <button class="btn btn-secondary btn-rounded btn-sm text-sm" @click="addPokemonToTeam(pokemon)">Ajouter à l'équipe</button>
-            </div>
-            <div class="col-sm-6 btn">
-              <router-link :to="`/fiche_pokemon/${pokemon.name}`">
-               <CardBoutton  button-text="Plus de details"></CardBoutton>
-              </router-link>
-            </div>
+          <div class="card">
+            <nuxt-link :to="`/fiche_pokemon/${pokemon.name}`" class="card mb-3">
+              <img :src="pokemon.image" :alt="pokemon.name"/>
+            </nuxt-link>
+              <div class="card-body">
+                <p class="order"> n° {{ pokemon.order }}</p>
+                <h5 class="card-title">{{ pokemon.name }}</h5>
+                <div class="contenerTypes" >
+                 
+                  <p class="type" v-for="(type, index) in pokemon.types" :key="index" :style="{backgroundColor: getTypeColor(type.type.name)}"> {{ type.type.name}}</p>
+              </div>
+                <div class="row btn-card">
+                <div class="col btn">
+                  <button class="btn btn-secondary btn-rounded btn-sm text-sm" @click="addPokemonToTeam(pokemon)">Ajouter à l'équipe</button>
+                </div>
             </div>
           </div>
           </div>
         </div>
+        <div v-if="index === 5 && types.length > 5">
+        <button @click="showMore"> afficher plus de pokemon</button>
+      </div>
       </div>
     </template>
     <p v-else>Aucun Pokémon trouvé</p>
-    <pokemonTeam :team-pokemon="team" @remove-pokemon="removePokemon"></pokemonTeam>
   </div>
 </template>
 
@@ -51,6 +56,26 @@ export default {
       pokemons: [],
       filteredPokemons:[],
       team: [],
+      typeColors: {
+        grass: "#67a300",
+        poison: "#c75db0",
+        fire: "#e68330",
+        flying: "#c9c8e8",
+        water: "#089bff",
+        bug: "#A8B820",
+        normal: "#A8A878",
+        electric:"#F8D030",
+        ground: "#E0C068",
+        fairy: "#EE99AC",
+        fighting: "#C03028",
+        psychic:"#F85888",
+        rock: "#B8A038",
+        steel : "#B8B8D0",
+        ice: "#98D8D8",
+        ghost : "#705898",
+        dragon : "#7038F8"
+      },
+      showCount:5,
       
      
       
@@ -71,7 +96,9 @@ export default {
         const data = await response.json();
         return {
           name: data.name,
-          image: data.sprites.other["official-artwork"].front_default
+          image: data.sprites.other["official-artwork"].front_default,
+          order: data.id,
+          types: data.types
           
         };
       }));
@@ -82,7 +109,11 @@ export default {
     }
   },
   
-
+computed: {
+  displayedTypes() {
+    return this.types.slice(0, this.showCount);
+  }
+},
   methods: {
     filterPokemons(searchTerm) {
       if (!searchTerm) {
@@ -92,6 +123,12 @@ export default {
           return pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
         });
       }
+    },
+    getTypeColor(type){
+    return this.typeColors[type] || "gray"
+    },
+    showMore(){
+      this.showCount = this.types.length;
     },
   
   addPokemonToTeam(pokemon) {
