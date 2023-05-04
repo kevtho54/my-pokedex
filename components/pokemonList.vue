@@ -6,35 +6,36 @@
     <pokemonTeam :team-pokemon="team" @remove-pokemon="removePokemon"></pokemonTeam>
     <template v-if="filteredPokemons && filteredPokemons.length > 0">
       <div class="row gallery">
-        
-        <div v-for="pokemon in filteredPokemons" :key="pokemon.id" class="col-sm-2">
+        <div v-for="(pokemon) in filteredPokemons" :key="pokemon.id" class=" col-md-4 col-lg-3 col-xl-2 col-sm-6 col-">
           <div class="card">
             <nuxt-link :to="`/fiche_pokemon/${pokemon.name}`" class="card mb-3">
               <img :src="pokemon.image" :alt="pokemon.name"/>
             </nuxt-link>
-              <div class="card-body">
-                <p class="order"> n° {{ pokemon.order }}</p>
-                <h5 class="card-title">{{ pokemon.name }}</h5>
-                <div class="contenerTypes" >
-                 
+            <div class="card-body">
+              <p class="order"> n° {{ pokemon.order }}</p>
+              <h5 class="card-title">{{ pokemon.name }}</h5>
+              <div class="row">
+                <div class="contenerTypes col-sm-12">
                   <p class="type" v-for="(type, index) in pokemon.types" :key="index" :style="{backgroundColor: getTypeColor(type.type.name)}"> {{ type.type.name}}</p>
-              </div>
-                <div class="row btn-card">
-                <div class="col btn">
-                  <button class="btn btn-secondary btn-rounded btn-sm text-sm" @click="addPokemonToTeam(pokemon)">Ajouter à l'équipe</button>
                 </div>
+              </div>
+              <div class="row btn-card">
+                <div class="col btn">
+                  <button class="btn btn-secondary btn-rounded btn-sm text-sm btn-block" @click="addPokemonToTeam(pokemon)">Ajouter à l'équipe</button>
+                </div>
+              </div>
             </div>
           </div>
-          </div>
         </div>
-        <div v-if="index === 5 && types.length > 5">
-        <button @click="showMore"> afficher plus de pokemon</button>
       </div>
+      <div v-if="filteredPokemons.length > 5" class="text-center">
+        <button class="btn btn-secondary" @click="showMore">Afficher plus de pokémons</button>
       </div>
     </template>
     <p v-else>Aucun Pokémon trouvé</p>
   </div>
 </template>
+
 
 <script>
 import searchBar from '../components/searchBar.vue'
@@ -107,13 +108,17 @@ export default {
     } catch (error) {
       console.log(error);//eslint-disable-line
     }
+    this.loadLocalStorage();
   },
+  
   
 computed: {
   displayedTypes() {
     return this.types.slice(0, this.showCount);
   }
 },
+
+
   methods: {
     filterPokemons(searchTerm) {
       if (!searchTerm) {
@@ -130,50 +135,62 @@ computed: {
     showMore(){
       this.showCount = this.types.length;
     },
-  
-  addPokemonToTeam(pokemon) {
     
-    console.log("le pokemon a été ajouté ", pokemon.name);
-    const added = this.team.some(teamPokemon => {
-      return teamPokemon && teamPokemon.name === pokemon.name;
-    });
-    if (!added) {
-      if (this.team.length < 6) {
-        this.team.push({
-          name: pokemon.name,
-          image: pokemon.image,
-          // ajoutez d'autres propriétés ici si nécessaire
-        });
-
-        this.$set(this.team, this.team.length - 1, pokemon);
-        
-        console.log("equipe:",this.team);
-        return true;
+    addPokemonToTeam(pokemon) {
+      
+      console.log("le pokemon a été ajouté ", pokemon.name);
+      const added = this.team.some(teamPokemon => {
+        return teamPokemon && teamPokemon.name === pokemon.name;
+      });
+      if (!added) {
+        if (this.team.length < 6) {
+          this.team.push({
+            name: pokemon.name,
+            image: pokemon.image,
+          });
+          
+          this.updateLocalStorage()
+          this.$set(this.team, this.team.length - 1, pokemon);
+          
+          console.log("equipe:",this.team);
+          return true;
+        } else {
+          alert('Vous ne pouvez avoir que 6 Pokémon dans votre équipe');
+          
+        }
       } else {
-        alert('Vous ne pouvez avoir que 6 Pokémon dans votre équipe');
-        return false;
+        alert('Ce Pokémon est déjà dans votre équipe');
+      
       }
-    } else {
-      alert('Ce Pokémon est déjà dans votre équipe');
-      return false;
-    }
-  },
+    },
+
   selectPokemon(pokemon) {
     this.selectedPokemon = pokemon;
   },
-
+  
   removePokemon(pokemon) {
-  // Trouve l'index du pokemon à enlever dans l'équipe en utilisant la méthode findIndex() 
-  const index = this.team.findIndex(teamPokemon => {
-    return teamPokemon && teamPokemon.name === pokemon.name;
-  });
-  // Vérifie si l'index est supérieur à -1, c'est-à-dire si le pokemon a été trouvé dans l'équipe
-  if (index > -1) {
-    // Si oui, supprime le pokemon de l'équipe en utilisant la méthode splice()
+    // Trouve l'index du pokemon à enlever dans l'équipe en utilisant la méthode findIndex() 
+    const index = this.team.findIndex(teamPokemon => {
+      return teamPokemon && teamPokemon.name === pokemon.name;
+    });
+    // Vérifie si l'index est supérieur à -1, c'est-à-dire si le pokemon a été trouvé dans l'équipe
+    if (index > -1) {
+      // Si oui, supprime le pokemon de l'équipe en utilisant la méthode splice()
     // La méthode splice() prend deux arguments : l'index de départ et le nombre d'éléments à supprimer
     this.team.splice(index, 1);
-   }
   }
- }
+  this.updateLocalStorage();
+
+},
+updateLocalStorage() {
+      localStorage.setItem('myTeam', JSON.stringify(this.team));
+    },
+    loadLocalStorage() {
+      const myTeam = localStorage.getItem('myTeam');
+      if (myTeam) {
+        this.team = JSON.parse(myTeam);
+      }
+    },
+}
 };
 </script>
