@@ -1,31 +1,41 @@
 <template>
   <div class="fiche-pokemon">
-  
+    
     <img class="logo" src="@/static/img/logo.png" alt="logo pokedex">
     <div class="contener-sheet">
-      <h1 class="title">Fiche de {{ pokemonName }}</h1> 
+      <h1 class="title mb-4 text-center">{{ pokemonName }}</h1> 
+      <div class="row text-center">
+                <div class="contenerTypes col-sm-12">
+                  <p class="type" v-for="(type, index) in pokemon.types" :key="index" :style="{backgroundColor: getTypeColor(type.type.name)}"> {{ type.type.name}}</p>
+                </div>
+              </div>
       <div class="contener-card">
         <div class="description">
-          <p class="txt">pokémon n°{{pokemonOrder}}</p>
-          <p class="txt">pokémon de type {{ pokemonTypes }}</p>
-          <p class="txt"> Statistique du pokémon: </p>
-          <ul class="stats">
-            <li v-for="stat in pokemonStats">
-              {{ stat.name }}: {{ stat.base_stat }}
-            </li>
-          </ul>
-          <p> Poid : {{ pokemonWeight }} kg</p>
+          <div class="details mb-3">
+            <p class="txt mb-0">pokémon n°{{pokemonOrder}}</p>
+            <p class="mb-0"> Poid : {{ pokemonWeight }} g</p>
+          </div>
+
+          <div class="container p-0">
+            <p class="txt m-0 p-0"> Statistique </p>
+            <ul class="row p-3 pt-2">
+              <li v-for="stat in pokemonStats" class="list-unstyled p-0">
+                {{ stat.name }}: {{ stat.base_stat }}
+              </li>
+            </ul>
+            
+          </div>
         </div>
-
+        
         <!-- J'utilise une boucle v-for pour recupéré le background en fonction du type de pokemon. J'utilise ensuite la variable "btnColor" pour stocké la couleur et la réutilisé sur mon bouton retour -->
-
+        
         <div v-for="(type,index) in pokemon.types" :key="index" v-if="index ===0" :style="{ backgroundColor: btnColor=getTypeColor(pokemon.types[0].type.name)}" class="contener-img">
           <img :src="pokemonImage" :alt="pokemonName" class="img-pokemon">
         </div>
       </div>
-      <nuxt-link to="/" class="btn-back rounded-pill text-center" :style="{backgroundColor: btnColor}">Retour au pokedex</nuxt-link>
+      <nuxt-link to="/" class="btn-back rounded-pill text-center text-sm" :style="{backgroundColor: btnColor}">Retour au pokedex</nuxt-link>
       
-  </div>
+    </div>
     
   </div>
 </template>
@@ -99,7 +109,7 @@ export default {
     if (!this.pokemon.types) {
       return [];
     }
-    return this.pokemon.types.map(type => type.type.name).join(',');
+    return this.pokemon.types.map(type => type.type.name).join('');
   },
   pokemonStats (){
     if (!this.pokemon.stats){
