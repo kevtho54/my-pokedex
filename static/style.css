@@ -90,6 +90,29 @@ input{
     flex-direction: column;
     align-items: center;
  }
+ .title-type{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+
+ .Collapse{
+    width: 60%;
+    background-color: gray;
+    margin-bottom: 30px;
+    padding: 15px 10px 20px 15px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+ }
+ .arrow-down {
+    transform: rotate(45deg);
+  }
+  
+  .arrow-up {
+    transform: rotate(-135deg);
+  }
+
  .btn-back{
    margin-top: 30px;
    text-decoration: none;
@@ -100,6 +123,7 @@ input{
 
  .title {
     margin-bottom: 37px;
+    color: white;
  }
 .contener-sheet{
     display: flex;
@@ -185,13 +209,24 @@ input{
 }
 
 @keyframes myAnim {
-	0% {
-		transform: scaleX(0);
+    0% {
+        transform: scaleX(0);
 	}
-
+    
 	100% {
-		transform: scaleX(1);
+        transform: scaleX(1);
 	}
+}
+@keyframes animMobile {
+    0% {
+        opacity: 0;
+        transform: translateY(-250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 @media (min-width: 768px) and (max-width: 992px) {
     .img-pokemon{
@@ -203,14 +238,16 @@ input{
     input{
         width: 60%;
     }
-    
 }
-
 @media (min-width: 0px) and (max-width: 767px) {
+    .contener-sheet{
+        animation: myAnimation none;
+    }
 
 .contener-card{
     flex-direction: column-reverse;
     align-items: center;
+    animation: animMobile 1s ease 1 normal forwards;
 }
 .contener-img, .description{
     width: 90%;
@@ -237,5 +274,7 @@ input{
 }
 .img-pokemon{
     width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 }

@@ -3,12 +3,22 @@
     
     <img class="logo" src="@/static/img/logo.png" alt="logo pokedex">
     <div class="contener-sheet">
+      <div class="title-type">
       <h1 class="title mb-4 text-center">{{ pokemonName }}</h1> 
       <div class="row text-center">
                 <div class="contenerTypes col-sm-12">
                   <p class="type" v-for="(type, index) in pokemon.types" :key="index" :style="{backgroundColor: getTypeColor(type.type.name)}"> {{ type.type.name}}</p>
                 </div>
               </div>
+            </div>
+            <div @click="toggleCollapse" class="Collapse text-center">
+              <p class="mb-0"> Le saviez-vous ?</p>
+              <img class="['arrow', {'arrow-down': isCollapsed, 'arrow-up': !isCollapsed}]" src="@/static/img/vector.svg" alt="arrow">
+              </div>
+            <div v-if="isCollapsed">
+              <p>{{ pokemonDescriptions }}</p>
+            </div>
+
       <div class="contener-card">
         <div class="description">
           <div class="details mb-3">
@@ -45,9 +55,11 @@
 
 export default {
   data() {
-    /* J'utilise la methode data() qui me retourne un objet avec comme propriété un tableau vide */
+   
     return {
       pokemon: {},
+      pokemonDescriptions: '',
+      isCollapsed: false,
       btnColor: null,
       typeColors: {
         grass: "#67a300",
@@ -76,16 +88,29 @@ export default {
   async mounted() {
     console.log(this.team);
     try {
+       // recupération des données de l'api
       const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + this.pokemonName);
       const data = await response.json();
-      
+      // récupération des données de l'url présente dans l'api  
+      const speciesResponse = await fetch(data.species.url)
+      const speciesData = await speciesResponse.json()
+    
+      // récupération du texte uniquement en francais présent dans l'api
+      for (const entry of speciesData.flavor_text_entries) {
+        if (entry.language.name === 'fr'){
+          this.pokemonDescriptions = entry.flavor_text;
+          break;
+        }
+      }
+  
       /* J'utilise les données récupérées pour initialiser la propriété pokemon de mon composant */
       this.pokemon = {
        sprites: data.sprites,
        types: data.types,
        weight: data.weight,
        stats: data.stats,
-       order: data.order
+       order: data.order,
+       entries:data.species.url
       };
     } catch (error) {
       console.log(error);//eslint-disable-line
@@ -111,6 +136,7 @@ export default {
     }
     return this.pokemon.types.map(type => type.type.name).join('');
   },
+  
   pokemonStats (){
     if (!this.pokemon.stats){
       return []
@@ -127,6 +153,8 @@ export default {
    return this.pokemon.weight
   },
 
+
+
   
 },
 methods: {
@@ -134,6 +162,9 @@ methods: {
       return this.typeColors[type] || "gray"
       },
 
+      toggleCollapse() {
+        this.isCollapsed = !this.isCollapsed
+      }
   }
   
   
