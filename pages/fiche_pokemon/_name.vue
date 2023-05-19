@@ -4,19 +4,21 @@
     <img class="logo" src="@/static/img/logo.png" alt="logo pokedex">
     <div class="contener-sheet">
       <div class="title-type">
-      <h1 class="title mb-4 text-center">{{ pokemonName }}</h1> 
+      <h1 class="title mb-2 text-center">{{ pokemonName }}</h1> 
       <div class="row text-center">
                 <div class="contenerTypes col-sm-12">
                   <p class="type" v-for="(type, index) in pokemon.types" :key="index" :style="{backgroundColor: getTypeColor(type.type.name)}"> {{ type.type.name}}</p>
                 </div>
               </div>
             </div>
-            <div @click="toggleCollapse" class="Collapse text-center">
+            <div  @click="toggleCollapse" class="containerCollapse text-center">
+             <div    class= "Collapse text-center" :style="{backgroundColor:btnColor}">
               <p class="mb-0"> Le saviez-vous ?</p>
-              <img class="['arrow', {'arrow-down': isCollapsed, 'arrow-up': !isCollapsed}]" src="@/static/img/vector.svg" alt="arrow">
-              </div>
-            <div v-if="isCollapsed">
-              <p>{{ pokemonDescriptions }}</p>
+              <img class="arrow-down" :class= "{'arrow-up': isCollapsed}" src="@/static/img/vector.svg" alt="arrow">
+             </div>
+             <div class="collapseContent" v-if="isCollapsed">
+               <p>{{ pokemonDescriptions }}</p>
+             </div>
             </div>
 
       <div class="contener-card">
@@ -28,11 +30,15 @@
 
           <div class="container p-0">
             <p class="txt m-0 p-0"> Statistique </p>
-            <ul class="row p-3 pt-2">
-              <li v-for="stat in pokemonStats" class="list-unstyled p-0">
-                {{ stat.name }}: {{ stat.base_stat }}
-              </li>
-            </ul>
+            <div class=" stats row pt-2">
+              <div v-for="stat in pokemonStats" class="p-0">
+                <div class="progress-bar p-1 rounded" :style="{width: getProgressBar(stat), backgroundColor:btnColor}">
+                  <p class="mb-0">{{ stat.name }}</p>
+                  <p class="mb-0">{{ stat.base_stat }}</p> 
+                </div>
+                <div class="progress-bar-max p-1 rounded">255</div>
+            </div>
+          </div>
             
           </div>
         </div>
@@ -164,6 +170,9 @@ methods: {
 
       toggleCollapse() {
         this.isCollapsed = !this.isCollapsed
+      },
+      getProgressBar(stat){
+        return (stat.base_stat / 255)*100+'%'
       }
   }
   
