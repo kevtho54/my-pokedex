@@ -1,7 +1,7 @@
 body{
     background: url(../static/img/background_grey.jpg);
-    min-width:380px ;
-    max-width: 2500px;
+    min-width: 340px;
+    max-width: 2200px;
     margin-left: auto;
     margin-right: auto;
    
@@ -96,7 +96,7 @@ input{
  }
 
 .containerCollapse{
-    width: 30%;
+    width: 60%;
 }
  .Collapse{
     background-color: gray;
@@ -104,6 +104,8 @@ input{
     border-radius: 15px;
     display: flex;
     justify-content: space-between;
+    font-size: 25px;
+    color: white;
  }
  .arrow-down {
     transform: rotate(180deg);
@@ -119,14 +121,16 @@ input{
     padding: 30px 30px 20px 30px;
     position: relative;
     top: -11px;
+    font-size: 25px;
   }
 
  .btn-back{
    margin-top: 30px;
    text-decoration: none;
    width: 25%;
+   font-size: 25px;
    color: white;
-   padding-bottom: 5px;
+   padding-bottom: 4px;
  }
 
  .title {
@@ -138,7 +142,7 @@ input{
    justify-content: center;
    flex-direction: column;
    align-items: center;
-   margin-top: 30px ;
+   margin-top: 15px ;
    margin-left: auto;
    margin-right: auto;
    padding-bottom: 35px;
@@ -184,16 +188,16 @@ input{
         content: "";
         position: absolute;
         float: left;
-        width: 60px;
+        width: 69px;
         height: 100%;
-        transform:translateX(-32px) skewX(355deg);
+        transform:translateX(-37px) skewX(355deg);
         background-color: inherit;
       
               
 }
 
 .img-pokemon{
-    width: 70%;
+    width: 78%;
     z-index: 1;
     margin-left: 30px;
    
@@ -206,6 +210,7 @@ input{
     border-radius: 30px 0px 0px 30px;
     padding-left: 30px;
     padding-top: 10px;
+    padding-bottom: 20px;
     box-shadow: -6px 3px 20px 9px black;
 }
 .details {
@@ -218,19 +223,18 @@ input{
     width: 85%;
 }
 .progress-bar{
-    margin-bottom: 20px;
+    height: 23px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
- position: absolute
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute
 }
 .progress-bar-max {
     width: 100%;
     background-color: #c9d1d9bf;
-    display: flex;
-    flex-direction: row;
-    justify-content:flex-end;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    height: 23px;
     
 }
 
@@ -254,32 +258,42 @@ input{
         transform: translateY(0);
     }
 }
-
-@media (min-width: 768px) and (max-width: 991px) {
-    .stats{
-        width: 80%;
+@media (min-width: 992px) and (max-width: 1200px) {
+    .btn-back{
+        font-size: 20px;
+    }
+    .Collapse, .collapseContent{
+        font-size: 15px;
     }
 }
 @media (min-width: 768px) and (max-width: 992px) {
+    .stats{
+        width: 80%;
+    }
+    .btn-back{
+        font-size: 17px;
+    }
     .img-pokemon{
        width: 75%;
        margin-left: 10px;
     }
-}
-@media (max-width:579px) {
-    input{
-        width: 60%;
+    .Collapse, .collapseContent{
+        font-size: 15px;
     }
 }
+
 @media (min-width: 0px) and (max-width: 767px) {
     .contener-sheet{
         animation: myAnimation none;
     }
+    .Collapse, .collapseContent{
+        font-size: 15px;
+    }
 
-.contener-card{
-    flex-direction: column-reverse;
-    align-items: center;
-    animation: animMobile 1s ease 1 normal forwards;
+    .contener-card{
+        flex-direction: column-reverse;
+        align-items: center;
+        animation: animMobile 1s ease 1 normal forwards;
 }
 .contener-img, .description{
     width: 90%;
@@ -293,7 +307,7 @@ input{
 .description{
     border-radius: 0px 0px 30px 30px;
 }
-    
+
 .contener-img::before{
     display: none;
 }
@@ -310,4 +324,14 @@ input{
 .stats {
     width: 98%;
 }
+.btn-back{
+    font-size: 15px;
+    width: 160px;
+    padding-bottom: 2px;
+}
+}
+@media (max-width:579px) {
+    input{
+        width: 60%;
+    }
 }

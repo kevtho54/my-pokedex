@@ -32,11 +32,11 @@
             <p class="txt m-0 p-0"> Statistique </p>
             <div class=" stats row pt-2">
               <div v-for="stat in pokemonStats" class="p-0">
+                <p class="mb-0">{{ stat.name }}</p>
                 <div class="progress-bar p-1 rounded" :style="{width: getProgressBar(stat), backgroundColor:btnColor}">
-                  <p class="mb-0">{{ stat.name }}</p>
                   <p class="mb-0">{{ stat.base_stat }}</p> 
                 </div>
-                <div class="progress-bar-max p-1 rounded">255</div>
+                <div class="progress-bar-max p-1 rounded"></div>
             </div>
           </div>
             
