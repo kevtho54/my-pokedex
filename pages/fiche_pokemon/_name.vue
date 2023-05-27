@@ -29,7 +29,6 @@
           </div>
 
           <div class="container p-0">
-            <p class="txt m-0 p-0"> Statistique </p>
             <div class=" stats row pt-2">
               <div v-for="stat in pokemonStats" class="p-0">
                 <p class="mb-0">{{ stat.name }}</p>
