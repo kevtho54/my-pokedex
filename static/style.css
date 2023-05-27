@@ -228,7 +228,7 @@ input{
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    position: absolute
+    position: absolute;
 }
 .progress-bar-max {
     width: 100%;
@@ -258,6 +258,7 @@ input{
         transform: translateY(0);
     }
 }
+
 @media (min-width: 992px) and (max-width: 1200px) {
     .btn-back{
         font-size: 20px;
