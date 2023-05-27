@@ -1,0 +1,338 @@
+body{
+    background: url(../static/img/background_grey.jpg);
+    min-width: 340px;
+    max-width: 2200px;
+    margin-left: auto;
+    margin-right: auto;
+   
+    
+}
+.page{
+    text-align: center;
+}
+.logo { 
+    width: 350px;
+}
+input{
+    width: 40%;
+    height: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid;
+    
+}
+.gallery{
+    margin: 10px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: white;
+    border-radius: 40px;
+    padding-bottom: 10px;
+}
+.card{
+    border: none;
+    margin-top: 15px;
+}
+.card-body{
+    padding-top: 0px;
+    padding-left: 2px;
+}
+.order, .card-title{
+    text-align: start;
+}
+.order {
+    font-weight: bold;
+    color: gray;
+    margin-bottom: 2px;
+}
+.contenerTypes{
+    display: flex;
+    flex-direction: row;
+}
+.type {
+    text-align: start;
+    margin-right: 7px;
+    padding: 0px 15px ;
+    padding-bottom: 3px;
+    color: white;
+    border-radius: 50px;
+    font-size: small;
+    
+}
+
+.btn{
+    width: 100%;
+    font-size: 12px;
+}
+ .my-team{
+    width: 80%;
+    border: 2px solid black;
+    border-radius: 40px;
+    padding-bottom: 15px;
+    background-color: #f1e070;
+ }
+ .btn-custom {
+  width: 10%;
+ }
+
+ .team-title{
+    margin-bottom: 0;
+ }
+
+ /* style page fiche pokemon */
+ 
+ .fiche-pokemon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+ .title-type{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+
+.containerCollapse{
+    width: 60%;
+}
+ .Collapse{
+    background-color: gray;
+    padding: 10px 10px 15px 15px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    color: white;
+ }
+ .arrow-down {
+    transform: rotate(180deg);
+    transition: ease-in-out 0.5s;
+  }
+  
+  .arrow-up {
+    transform: rotate(0deg);
+  }
+  .collapseContent{
+    background-color: #d4d4d4;;
+    border-radius: 0px 0px 15px 15px;
+    padding: 30px 30px 20px 30px;
+    position: relative;
+    top: -11px;
+    font-size: 25px;
+  }
+
+ .btn-back{
+   margin-top: 30px;
+   text-decoration: none;
+   width: 25%;
+   font-size: 25px;
+   color: white;
+   padding-bottom: 4px;
+ }
+
+ .title {
+    margin-bottom: 37px;
+    color: white;
+ }
+.contener-sheet{
+    display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 15px ;
+   margin-left: auto;
+   margin-right: auto;
+   padding-bottom: 35px;
+   width: 90%;
+   border-radius: 30px;
+   animation: myAnim 1s ease-in-out 0s 1 normal forwards;
+   
+}
+.contener-card{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position:relative;
+    margin-top:35px
+}
+
+.contener-img{
+    width: 40%;
+    border-radius: 0px 30px 30px 0px;
+    box-shadow: 5px 2px 20px 9px black;
+    display: flex;
+    align-items: center;
+   
+    
+}
+.contener-img::after {
+    content: ' ';
+   
+   position: absolute;
+    left: 58%;
+    width: 34%;
+    height: 100%;
+    opacity: 0.1;
+    background-image: url(./img/pokeball.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  
+}
+
+.contener-img::before{
+    /*création d'une séparation oblique entre deux div */
+        content: "";
+        position: absolute;
+        float: left;
+        width: 69px;
+        height: 100%;
+        transform:translateX(-37px) skewX(355deg);
+        background-color: inherit;
+      
+              
+}
+
+.img-pokemon{
+    width: 78%;
+    z-index: 1;
+    margin-left: 30px;
+   
+   
+  
+}
+.description {
+    background-color: white;
+    width: 43%;
+    border-radius: 30px 0px 0px 30px;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    box-shadow: -6px 3px 20px 9px black;
+}
+.details {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+.stats{
+    position: relative;
+    width: 85%;
+}
+.progress-bar{
+    height: 23px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+}
+.progress-bar-max {
+    width: 100%;
+    background-color: #c9d1d9bf;
+    margin-bottom: 10px;
+    height: 23px;
+    
+}
+
+@keyframes myAnim {
+    0% {
+        transform: scaleX(0);
+	}
+    
+	100% {
+        transform: scaleX(1);
+	}
+}
+@keyframes animMobile {
+    0% {
+        opacity: 0;
+        transform: translateY(-250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .btn-back{
+        font-size: 20px;
+    }
+    .Collapse, .collapseContent{
+        font-size: 15px;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    .stats{
+        width: 80%;
+    }
+    .btn-back{
+        font-size: 17px;
+    }
+    .img-pokemon{
+       width: 75%;
+       margin-left: 10px;
+    }
+    .Collapse, .collapseContent{
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 767px) {
+    .contener-sheet{
+        animation: myAnimation none;
+    }
+    .Collapse, .collapseContent{
+        font-size: 15px;
+    }
+
+    .contener-card{
+        flex-direction: column-reverse;
+        align-items: center;
+        animation: animMobile 1s ease 1 normal forwards;
+}
+.contener-img, .description{
+    width: 90%;
+    height: 100%;
+    box-shadow: 6px 10px 20px 7px black;
+
+}
+.contener-img {
+    border-radius: 30px 30px 0px 0px;
+}
+.description{
+    border-radius: 0px 0px 30px 30px;
+}
+
+.contener-img::before{
+    display: none;
+}
+.contener-img::after{
+    left: 61%;
+    width: 34%;
+    background-size: contain;
+}
+.img-pokemon{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.stats {
+    width: 98%;
+}
+.btn-back{
+    font-size: 15px;
+    width: 160px;
+    padding-bottom: 2px;
+}
+}
+@media (max-width:579px) {
+    input{
+        width: 60%;
+    }
+}
