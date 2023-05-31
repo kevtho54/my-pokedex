@@ -97,6 +97,8 @@ input{
 
 .containerCollapse{
     width: 60%;
+    transition: ease-in-out 3s;
+
 }
  .Collapse{
     background-color: gray;
@@ -106,6 +108,8 @@ input{
     justify-content: space-between;
     font-size: 25px;
     color: white;
+    cursor: pointer;
+    
  }
  .arrow-down {
     transform: rotate(180deg);
